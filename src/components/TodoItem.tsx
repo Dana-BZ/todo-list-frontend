@@ -1,6 +1,14 @@
 import React, { FC } from 'react';
-import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+const useStyles = makeStyles(() => ({
+    completedStyle: {
+        fontStyle: "italic",
+        color: "#cdcdcd",
+        textDecoration: "line-through"
+    }
+}));
 
 interface TodoItemProps {
     todo: Todo,
@@ -9,6 +17,8 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, onToggleComplete, onDelete }) => {
+    const classes = useStyles();
+
     const handleCompletedChange = () => {
         onToggleComplete(todo.id);
     };
@@ -18,7 +28,10 @@ const TodoItem: FC<TodoItemProps> = ({ todo, onToggleComplete, onDelete }) => {
     };
 
     return (
-        <ListItem button onClick={handleCompletedChange}>
+        <ListItem
+            button
+            onClick={handleCompletedChange}
+            className={todo.completed ? classes.completedStyle : ''} >
             <ListItemIcon>
                 <Checkbox
                     edge="end"
