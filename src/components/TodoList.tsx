@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { deleteFromApi, fetchFromAPI, postToApi, putToApi } from '../api';
-import TodoItem from './TodoItem';
-import { Button, TextField } from '@material-ui/core';
+import { Box, Button, Container, Grid, TextField } from '@material-ui/core';
 import List from '@material-ui/core/List';
+import SendIcon from '@material-ui/icons/Send';
+import TodoItem from './TodoItem';
 
 const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -58,19 +59,22 @@ const TodoList = () => {
     }
 
     return (
-        <div>
+        <>
             <List>
                 {todos.map(todo => <TodoItem key={todo.id} todo={todo} onToggleComplete={onToggleComplete} onDelete={onDelete} />)}
             </List>
-            <TextField
-                onChange={event => setTodoText(event.target.value)}
-                value={todoText}
-                placeholder={"Enter todo here"}
-            />
-            <Button onClick={addTodo}>
-                Add
+            <Box justifyContent='center' display='flex'>
+                <TextField
+                    onChange={event => setTodoText(event.target.value)}
+                    value={todoText}
+                    placeholder={"Enter todo here"}
+                    style={{ margin: '10px' }}
+                />
+                <Button startIcon={<SendIcon />} style={{ margin: '10px' }} onClick={addTodo}>
+                    Add
             </Button>
-        </div>
+            </Box>
+        </>
     );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Checkbox, IconButton, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 interface TodoItemProps {
@@ -9,7 +9,6 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, onToggleComplete, onDelete }) => {
-
     const handleCompletedChange = () => {
         onToggleComplete(todo.id);
     };
@@ -18,16 +17,17 @@ const TodoItem: FC<TodoItemProps> = ({ todo, onToggleComplete, onDelete }) => {
         onDelete(todo.id);
     };
 
-
     return (
         <ListItem button onClick={handleCompletedChange}>
-            <ListItemText primary={todo.text} />
-            <ListItemSecondaryAction>
+            <ListItemIcon>
                 <Checkbox
                     edge="end"
                     onChange={handleCompletedChange}
                     checked={todo.completed}
                 />
+            </ListItemIcon>
+            <ListItemText primary={todo.text} />
+            <ListItemSecondaryAction>
                 <IconButton onClick={handleDelete}>
                     <DeleteIcon />
                 </IconButton>
